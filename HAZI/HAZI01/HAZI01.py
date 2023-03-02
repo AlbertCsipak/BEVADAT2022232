@@ -264,7 +264,6 @@ dictHelper ={
 # %%
 def mean_key_value(input_dict):
     for key in input_dict.keys():
-        print(key)
         sum = 0
         count = 0
         for value in input_dict[key]:
