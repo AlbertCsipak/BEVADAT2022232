@@ -2,4 +2,4 @@
  
 Sziaszto
 
-![image](https://user-images.githubusercontent.com/92088275/222407465-3a54cd55-4b39-4932-b590-54eb1a228aa9.png)
+![monkey-keyboard](https://user-images.githubusercontent.com/92088275/222407600-ff7ccfd6-0671-4272-8128-531ed6b07f5f.gif)
