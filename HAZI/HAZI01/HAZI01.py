@@ -6,21 +6,12 @@
 #input parameters: input_list,start_index,end_index
 
 # %%
-evenList = [2,4,6,8]
-oddList = [1,3,5,7]
-mixedList = [1,2,3,4,5,6,7,8,9]
-notUniqueList = [1,1,2,2,3,3]
-
+def subset(input_list,start_index,end_index):
+    return input_list[start_index:end_index]
 
 # %%
-def subset (input_list,start_index,end_index):
-    tmpList = []
-    for i in range(start_index,end_index,1):
-        tmpList.append(input_list[i])
-    return tmpList
-
-# %%
-print(subset(mixedList,3,6))
+#print(subset([1,2,3,4,5,6,7,8,9],3,6))
+#print(subset([],3,6))
 
 # %%
 #Create a function that returns every nth element of a list.
@@ -36,7 +27,8 @@ def every_nth(input_list,step_size):
     return tmpList
 
 # %%
-print(every_nth(mixedList,2))
+#print(every_nth([1,2,3,4,5,6,7,8,9],2))
+#print(every_nth([],10))
 
 # %%
 #Create a function that can decide whether a list contains unique values or not
@@ -49,12 +41,16 @@ def unique(input_list):
     isUnique = False
     for i in input_list:
         if input_list.count(i) < 2:
-            return True
+            isUnique = True
+        else:
+            isUnique = False
     return isUnique
 
 # %%
-print(unique(notUniqueList))
-print(unique(mixedList))
+#print(unique([1,1,1]))
+#print(unique([1,1,2]))
+#print(unique([]))
+
 
 # %%
 #Create a function that can flatten a nested list ([[..],[..],..])
@@ -63,20 +59,17 @@ print(unique(mixedList))
 #input parameters: input_list
 
 # %%
-nestedList = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6]]
-
-# %%
 def flatten(input_list):
     tmpList = []
 
-    for i in input_list:
-        tmpList.append(i[0])
-        tmpList.append(i[1]) 
+    for item in input_list:
+        for value in item:
+            tmpList.append(value)
     return tmpList
 
 # %%
-print(nestedList)
-print(flatten(nestedList))
+#print(flatten([[1,2,3,4],[5,6,7,8]]))
+#print(flatten([[]]))
 
 # %%
 #Create a function that concatenates n lists
@@ -89,11 +82,12 @@ print(flatten(nestedList))
 def merge_lists(*args):
     tmpList = []
     for arg in args:
-        tmpList.append(arg)
+        tmpList+=arg
     return tmpList
 
 # %%
-print(merge_lists(evenList, oddList,mixedList))
+#print(merge_lists([1,2,3,4], [5,6,7,8]))
+#print(merge_lists([],[]))
 
 # %%
 #Create a function that can reverse a list of tuples
@@ -103,11 +97,6 @@ print(merge_lists(evenList, oddList,mixedList))
 #input parameters: input_list
 
 # %%
-tuplesList = []
-for i in range(10):
-   tuplesList.append((i,i+1))
-
-# %%
 def reverse_tuples(input_list):
     tmpList = []
     for i in input_list:
@@ -115,8 +104,8 @@ def reverse_tuples(input_list):
     return tmpList
 
 # %%
-print(tuplesList)
-print(reverse_tuples(tuplesList))
+#print([(0,1),(1,2),(2,3),(3,4),(4,5),(5,6)])
+#print(reverse_tuples([(0,1),(1,2),(2,3),(3,4),(4,5),(5,6)]))
 
 # %%
 #Create a function that removes duplicates from a list
@@ -125,21 +114,16 @@ print(reverse_tuples(tuplesList))
 #input parameters: input_list
 
 # %%
-duplicateList = [1,1,2,2,3,3,4,4,5,5]
-
-# %%
 def remove_duplicates(input_list):
     tmpList = []
     for i in input_list:
-        #if tmpList.count(i) == 0:
-        #    tmpList.append(i)
         if i not in tmpList:
             tmpList.append(i)
     return tmpList
 
 # %%
-print(duplicateList)
-print(remove_duplicates(duplicateList))
+#print(remove_duplicates([1,1,1,2,2,2,3,3,3,4,4,4]))
+#print(remove_duplicates([0]))
 
 # %%
 #Create a function that transposes a nested list (matrix)
@@ -148,22 +132,19 @@ print(remove_duplicates(duplicateList))
 #input parameters: input_list
 
 # %%
-matrix = [[1,2,3],
-          [4,5,6],
-          [7,8,9]]
-
-# %%
 def transpose(input_list):
-    transposed = [[0,0,0], [0,0,0], [0,0,0]]
-
-    for i in range(len(input_list)):
-        for j in range(len(input_list[0])):
-            transposed[j][i] = input_list[i][j]
-
+    transposed = []
+    if len(input_list) > 1:
+        for i in range(len(input_list[1])):
+            tmpList = []
+            for j in range(len(input_list[0])):
+                tmpList.append(input_list[j][i])
+            transposed.append(tmpList)    
     return transposed
 
 # %%
-print(transpose(matrix))
+#print(transpose([[1,2,3],[4,5,6],[7,8,9]]))
+#print(transpose([[]]))
 
 # %%
 #Create a function that can split a nested list into chunks
@@ -171,9 +152,6 @@ print(transpose(matrix))
 #return type: list
 #function name must be: split_into_chunks
 #input parameters: input_list,chunk_size
-
-# %%
-nestedList2 = [[1,2],[3,4],[5,6],[7,8]]
 
 # %%
 def split_into_chunks(input_list,chunk_size):
@@ -195,7 +173,7 @@ def split_into_chunks(input_list,chunk_size):
     return retList
 
 # %%
-print(split_into_chunks(nestedList2, 5))
+#print(split_into_chunks([[1,2,3],[4,5,6],[7,8,9]], 2))
 
 # %%
 #Create a function that can merge n dictionaries
@@ -204,23 +182,22 @@ print(split_into_chunks(nestedList2, 5))
 #input parameters: *dict
 
 # %%
-person1 = {
-    "name": "John",
-    "age": 20
-}
-person2 = {
-    "name": "Jane",
-    "age": 21
-}
-
-# %%
 def merge_dicts(*dict):
-    for i in range(len(dict)-1):
-        dict[i] | dict[i+1]
-    return dict
+    merged_dict={}
+    for item in dict:
+        merged_dict=merged_dict | item
+    return merged_dict
 
 # %%
-print(merge_dicts(person1,person2))
+#person1 = {
+#    "name": "John",
+#    "age": 20
+#}
+#person2 = {
+#    "address": "123 Main Street",  
+#}
+#print(merge_dicts(person1, person2))
+
 
 # %%
 #Create a function that receives a list of integers and sort them by parity
@@ -245,7 +222,7 @@ def by_parity(input_list):
     return parityDict
 
 # %%
-print(by_parity(mixedList))
+#print(by_parity([1,2,3,4,5,6]))
 
 # %%
 #Create a function that receives a dictionary like this: {"some_key":[1,2,3,4],"another_key":[1,2,3,4],....}
@@ -254,12 +231,6 @@ print(by_parity(mixedList))
 #return type: dict
 #function name must be: mean_key_value
 #input parameters: input_dict
-
-# %%
-dictHelper ={
-    "even" : [2,4,6,8],
-    "odd" : [1,3,5,7]
-}
 
 # %%
 def mean_key_value(input_dict):
@@ -275,7 +246,10 @@ def mean_key_value(input_dict):
     return input_dict
 
 # %%
-mean_key_value(dictHelper)
+#mean_key_value({
+#    "even" : [2,4,6,8],
+#    "odd" : [1,3,5,7]
+#})
 
 # %%
 #If all the functions are created convert this notebook into a .py file and push to your repo
