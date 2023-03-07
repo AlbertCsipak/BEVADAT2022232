@@ -22,7 +22,10 @@ def create_array(merete = (2,2)):
 #set_one()
 
 def set_one(array):
-    array 
+    np.fill_diagonal(array, 1)
+    return array
+
+#print(set_one(np.array([[1,2],[3,4]])))
 
 # Transzponáld a paraméterül kapott mártix-ot:
 # Be: [[1, 2], [3, 4]]
@@ -48,18 +51,27 @@ def round_array(array, n=2):
 # Ki: [[ True False False], [ True  True  True], [False False False]]
 # bool_array()
 
+def bool_array(array):
+    return np.bitwise_not(np.logical_not(array))
 
-
+#print(bool_array(np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])))
 
 # Készíts egy olyan függvényt, ami a bementként  0 és 1 ből álló tömben a 1 - False-ra az 0 True-ra cserélni
 # Be: [[1, 0, 0], [1, 1, 1],[0, 0, 0]]
 # Ki: [[ True False False], [ True  True  True], [False False False]]
 # invert_bool_array()
 
+def invert_bool_array(array):
+    return np.logical_not(array)
 
-
+#print(invert_bool_array(np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])))
 
 # Készíts egy olyan függvényt ami a paraméterként kapott array-t kilapítja
 # Be: [[1,2], [3,4]]
 # Ki: [1,2,3,4]
 # flatten()
+
+def flatten(array):
+    return array.flatten()
+
+#print(flatten(np.array([[1,2], [3,4]])))
