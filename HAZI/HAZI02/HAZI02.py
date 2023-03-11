@@ -2,7 +2,15 @@
 import numpy as numpy
 
 # %%
-# Írj egy olyan fügvényt, ami megfordítja egy 2d array oszlopait
+#FONTOS!!!
+
+# CSAK OTT LEHET HASZNÁLNI FOR LOOP-OT AHOL A FELADAT KÜLÖN KÉRI!
+# [1,2,3,4] --> ezek az értékek np.array-ek. Ahol listát kérek paraméterként ott külön ki fogom emelni!
+# Ha végeztél a feladatokkal, akkor notebook-ot alakítsd át .py.
+# A FÁJLBAN CSAK A FÜGGVÉNYEK LEGYENEK! (KOMMENTEK MARADHATNAK)
+
+# %%
+# Írj egy olyan fügvényt, ami megfordítja egy 2d array oszlopait. Bemenetként egy array-t vár.
 # Be: [[1,2],[3,4]]
 # Ki: [[2,1],[4,3]]
 # column_swap()
@@ -14,7 +22,7 @@ def column_swap(matrix):
 #print(column_swap([[]]))
 
 # %%
-#Készíts egy olyan függvényt ami összehasonlít két array-t és adjon vissza egy array-ben, hogy hol egyenlőek 
+# Készíts egy olyan függvényt ami összehasonlít két array-t és adjon vissza egy array-ben, hogy hol egyenlőek 
 # Pl Be: [7,8,9], [9,8,7] 
 # Ki: [1]
 # compare_two_array()
@@ -32,15 +40,15 @@ def compare_two_array(array1, array2):
         tmp = numpy.nonzero(tmp)[0]
         return tmp
 
-#print(compare_two_array(numpy.array([7,8,9]), numpy.array([9,8,7])))
+#print(compare_two_array([7,8,9], [9,8,7] ))
 #print(compare_two_array([],[]))
 
 # %%
-#Készíts egy olyan függvényt, ami vissza adja a megadott array dimenzióit:
+# Készíts egy olyan függvényt, ami vissza adja string-ként a megadott array dimenzióit:
 # Be: [[1,2,3], [4,5,6]]
 # Ki: "sor: 2, oszlop: 3, melyseg: 1"
 # get_array_shape()
-# 3D-vel még műküdnie kell!
+# 3D-vel még műküdnie kell!, 
 
 def get_array_shape(arr):
     tmp = numpy.shape(arr)
@@ -50,21 +58,24 @@ def get_array_shape(arr):
 #print(get_array_shape(numpy.array([[1,2,3], [4,5,6]])))
 
 # %%
-# Készíts egy olyan függvényt, aminek segítségével elő tudod állítani egy neurális hálózat tanításához szükséges Y-okat egy numpy array-ből. 
-#Bementként add meg az array-t, illetve hogy mennyi class-od van. Kimenetként pedig adjon vissza egy 2d array-t, ahol a sorok az egyes elemek. Minden nullákkal teli legyen és csak ott álljon egyes, ahol a bementi tömb megjelöli
+# Készíts egy olyan függvényt, aminek segítségével elő tudod állítani egy neurális hálózat tanításához szükséges pred-et egy numpy array-ből. 
+# Bementként add meg az array-t, illetve hogy mennyi class-od van. Kimenetként pedig adjon vissza egy 2d array-t, ahol a sorok az egyes elemek. Minden nullákkal teli legyen és csak ott álljon egyes, ahol a bementi tömb megjelöli. 
+# Pl. ha 1 van a bemeneten és 4 classod van, akkor az adott sorban az array-ban a [1] helyen álljon egy 1-es, a többi helyen pedig 0.
 # Be: [1, 2, 0, 3], 4
 # Ki: [[0,1,0,0], [0, 0, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1]]
 # encode_Y()
 
 def encode_Y(input,classes):
-    tmp = numpy.zeros((numpy.shape(input)[0],classes))
-    for i in range(classes):
-        numpy.put(tmp[i],input[i],1)
+    if len(input) > 0:
+        tmp = numpy.zeros((numpy.shape(input)[0],classes))
+        for i in range(classes):
+            numpy.put(tmp[i],input[i],1)
 
-    return tmp
+        return tmp
+    else:
+        return []
 
-#print(encode_Y([1, 2, 0,3],4))
-
+#print(encode_Y([1,2,0,3],4))
 
 # %%
 # A fenti feladatnak valósítsd meg a kiértékelését. Adj meg a 2d array-t és adj vissza a decodolt változatát
@@ -73,14 +84,16 @@ def encode_Y(input,classes):
 # decode_Y()
 
 def decode_Y(input):
-    return numpy.where(input == 1)[1]
+    if len(input) > 0:
+        return numpy.where(input == 1)[1]
+    else:
+        return []
 
 #print(decode_Y(numpy.array([[0,1,0,0], [0, 0, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1]])))
 
-
 # %%
-# Készíts egy olyan függvényt, ami képes kiértékelni egy neurális háló eredményét! Bemenetként egy listát és egy array-t és adja vissza a legvalószínübb element a listából.
-# Be: ['alma', 'körte', 'szilva'], [0.2, 0.2, 0.6]. 
+# Készíts egy olyan függvényt, ami képes kiértékelni egy neurális háló eredményét! Bemenetként egy listát és egy array-t és adja vissza azt az elemet, aminek a legnagyobb a valószínüsége(értéke) a listából.
+# Be: ['alma', 'körte', 'szilva'], [0.2, 0.2, 0.6]. # Az ['alma', 'körte', 'szilva'] egy lista!
 # Ki: 'szilva'
 # eval_classification()
 
@@ -93,7 +106,7 @@ def eval_classification(inputOne, inputTwo):
 # Készíts egy olyan függvényt, ahol az 1D array-ben a páratlan számokat -1-re cseréli
 # Be: [1,2,3,4,5,6]
 # Ki: [-1,2,-1,4,-1,6]
-# repalce_odd_numbers()
+# replace_odd_numbers()
 
 def replace_odd_numbers(input):
     tmp = numpy.where(input%2 == 1,-1, input)
@@ -114,7 +127,7 @@ def replace_by_value(arr, value):
 #print(replace_by_value(numpy.array([1, 2, 5, 0]), 2))
 
 # %%
-# Készítsd egy olyan függvényt, ami az array értékeit összeszorozza és az eredmény visszaadja
+# Készíts egy olyan függvényt, ami egy array értékeit összeszorozza és az eredményt visszaadja
 # Be: [1,2,3,4]
 # Ki: 24
 # array_multi()
@@ -126,7 +139,7 @@ def array_multi(arr):
 #print(array_multi(numpy.array([1,2,3,4])))
 
 # %%
-# Készítsd egy olyan függvényt, ami a 2D array értékeit összeszorozza és egy olyan array-el tér vissza, aminek az elemei a soroknak a szorzata
+# Készíts egy olyan függvényt, ami egy 2D array értékeit összeszorozza és egy olyan array-el tér vissza, aminek az elemei a soroknak a szorzata
 # Be: [[1, 2], [3, 4]]
 # Ki: [2, 12]
 # array_multi_2d()
@@ -147,10 +160,12 @@ def add_border(input):
 
 #print(add_border(numpy.array([[1,2],[3,4]])))
 
+# %%
+# A KÖTVETKEZŐ FELADATOKHOZ NÉZZÉTEK MEG A NUMPY DATA TYPE-JÁT!
 
 # %%
-# Készíts egy olyan függvényt ami két dátum között felsorolja az összes napot.
-# Be: '2023-03', '2023-04'
+# Készíts egy olyan függvényt ami két dátum között felsorolja az összes napot és ezt adja vissza egy numpy array-ben. A fgv ként str vár paraméterként 'YYYY-MM' formában.
+# Be: '2023-03', '2023-04'  # mind a kettő paraméter str.
 # Ki: ['2023-03-01', '2023-03-02', .. , '2023-03-31',]
 # list_days()
 
@@ -160,25 +175,26 @@ def list_days(date1, date2):
 #print(list_days(numpy.datetime64('2023-03'),numpy.datetime64('2023-04')))
 
 # %%
-# Írj egy fügvényt ami vissza adja az aktuális dátumot az alábbi formában: YYYY-MM-DD
+# Írj egy fügvényt ami vissza adja az aktuális dátumot az alábbi formában: YYYY-MM-DD. Térjen vissza egy 'numpy.datetime64' típussal.
 # Be:
-# Ki: 2017-03-24 
-def kismacska():
+# Ki: 2017-03-24
+# get_act_date()
+
+def get_act_date():
     return numpy.datetime64('now','D')
 
-#print(kismacska())
+#print(get_act_date())
 
 # %%
-# Írj egy olyan függvényt ami visszadja, hogy mennyi másodperc telt el 1970 január 01. 00:00:00 óta.
+# Írj egy olyan függvényt ami visszadja, hogy mennyi másodperc telt el 1970 január 01. 00:02:00 óta. Int-el térjen vissza
 # Be: 
 # Ki: másodpercben az idó, int-é kasztolva
 # sec_from_1970()
 
 def sec_from_1970():
-    tmp = numpy.datetime64('now')-numpy.datetime64('1970-01-01 00:00:00')
+    tmp = numpy.datetime64('now')-numpy.datetime64('1970-01-01 00:02:00')
     return tmp.astype('int64')
 
 #print(sec_from_1970())
-
 
 
