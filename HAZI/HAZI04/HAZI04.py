@@ -22,7 +22,7 @@ def csv_to_pdf(path):
     df = pd.read_csv(path)
     return df
 
-df = pd.read_csv("StudentsPerformance.csv")
+#df = pd.read_csv("StudentsPerformance.csv")
 #print(df)
 
 # %%
