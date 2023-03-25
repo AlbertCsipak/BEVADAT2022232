@@ -191,7 +191,9 @@ függvény neve: math_bar_plot
 def math_bar_plot(df_data):
     newDf = df_data.copy()
     arr = newDf.groupby("gender", group_keys=False)['math score'].mean()
-    fig = arr.plot(kind='bar', title='Average Math Score by Gender',ylabel='Math Score', xlabel='Gender')
+    
+    fig,ax = plt.subplots() 
+    arr.plot.bar(title='Average Math Score by Gender',ylabel='Math Score', xlabel='Gender',ax=ax,fig=fig)
 
     return fig
 
@@ -215,12 +217,9 @@ függvény neve: writing_hist
 # %%
 def writing_hist(df_data):
     newDf = df_data.copy()
-    fig, axes = plt.subplots()
-
-    newDf.plot.hist(column='writing score',ax=axes)
-    axes.set_xlabel('Writing Score')
-    axes.set_ylabel('Number of Students')
-    axes.set_title('Distribution of Writing Scores')
+    
+    fig, ax = plt.subplots()
+    newDf.plot.hist(column='writing score',xlabel='Writing Score',ylabel='Number of Students',title='Distribution of Writing Scores',ax=ax,fig = fig)
     
     return fig
 
@@ -244,11 +243,11 @@ függvény neve: ethnicity_pie_chart
 # %%
 def ethnicity_pie_chart(df_data):
     newDf = df_data.copy()
-    fig,axes = plt.subplots()
-
     grouped = newDf.groupby('race/ethnicity')['race/ethnicity'].count()
 
-    plot = grouped.plot.pie(title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%',ax=axes)
+    fig,ax = plt.subplots()
+    grouped.plot.pie(title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%',fig = fig,ax=ax)
+    
     return fig
 
 #print(ethnicity_pie_chart(df))
