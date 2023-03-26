@@ -20,8 +20,9 @@ függvény neve: csv_to_df
 '''
 
 # %%
-def csv_to_pdf(path):
-    return pd.read_csv(path)
+def csv_to_df(path):
+    df_data = pd.read_csv(path)
+    return df_data
 
 #df = pd.read_csv("StudentsPerformance.csv")
 #print(df)
@@ -164,7 +165,7 @@ def add_grade(df_data):
     newDf = df_data.copy()
     grade = (newDf['math score']+newDf['reading score']+newDf['writing score'])/300    
     newDf['grade'] = pd.cut(grade,
-                     bins = [0, 0.6,0.7,0.8,0.9,1],
+                     bins = [0, 0.59,0.69,0.79,0.89,1],
                      right=False,
                      labels=['F','D','C','B','A'])
     
@@ -219,8 +220,11 @@ def writing_hist(df_data):
     newDf = df_data.copy()
     
     fig, ax = plt.subplots()
-    newDf.plot.hist(column='writing score',xlabel='Writing Score',ylabel='Number of Students',title='Distribution of Writing Scores',ax=ax,fig = fig)
-    
+    ax.hist(newDf["writing score"])
+    ax.set_title("Distribution of Writing Scores")
+    ax.set_xlabel("Writing Score")
+    ax.set_ylabel("Number of Students")
+
     return fig
 
 #print(writing_hist(df))
@@ -246,8 +250,9 @@ def ethnicity_pie_chart(df_data):
     grouped = newDf.groupby('race/ethnicity')['race/ethnicity'].count()
 
     fig,ax = plt.subplots()
-    grouped.plot.pie(title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%',fig = fig,ax=ax)
-    
+    ax.pie(grouped.values, labels = grouped.index, autopct="%0.01f%%")
+    plt.title("Proportion of Students by Race/Ethnicity")
+
     return fig
 
 #print(ethnicity_pie_chart(df))
