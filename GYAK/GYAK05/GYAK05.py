@@ -8,7 +8,7 @@ import seaborn as sns
 class KNNClassifier:
         
     
-    def get_k(self)->int:
+    def k_neighbors(self)->int:
         return self.k
 
 
