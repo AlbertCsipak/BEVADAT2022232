@@ -1,9 +1,7 @@
-import numpy as np
-import pandas as pd
-import seaborn as sns
+import numpy as numpy
+import pandas as pandas
 from typing import Tuple
 from scipy.stats import mode
-from sklearn.metrics import confusion_matrix
 
 class KNNClassifier:
 
@@ -16,15 +14,15 @@ class KNNClassifier:
         return self.k
 
     @staticmethod 
-    def load_csv(csv_path:str)-> Tuple[pd.DataFrame,pd.Series]:
-        dataset = pd.read_csv(csv_path)
+    def load_csv(csv_path:str)-> Tuple[pandas.DataFrame,pandas.Series]:
+        dataset = pandas.read_csv(csv_path)
         dataset = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
 
         x,y = dataset.iloc[:,:-1],dataset.iloc[:,-1]
 
         return x,y
     
-    def train_test_split(self, features: pd.DataFrame,labels: pd.Series) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    def train_test_split(self, features: pandas.DataFrame,labels: pandas.Series) -> Tuple[pandas.DataFrame, pandas.DataFrame, pandas.Series, pandas.Series]:
         test_size = int(len(features) * self.test_split_ratio)
         train_size = len(features) - test_size
 
@@ -34,30 +32,30 @@ class KNNClassifier:
         self.x_test,self.y_test = features.iloc[train_size:,:],labels.iloc[train_size:]
         
     
-    def euclidean(self, element_of_x:np.ndarray) -> np.ndarray:
-        return np.sqrt(np.sum((self.x_train - element_of_x)**2,axis=1))
+    def euclidean(self, element_of_x:numpy.ndarray) -> numpy.ndarray:
+        return numpy.sqrt(numpy.sum((self.x_train - element_of_x)**2,axis=1))
     
-    def predict(self) -> pd.Series:
+    def predict(self) -> pandas.Series:
         labels_pred = []
 
         for x_test_element in self.x_test.iterrows():
 
             distances = self.euclidean(x_test_element)
-            distances = pd.concat([distances, self.y_train], axis=1)
+            distances = pandas.concat([distances, self.y_train], axis=1)
             distances = distances.sort_values(by=0).values
 
             label_pred = mode(distances[:self.k,1], axis=0).mode[0]
             labels_pred.append(label_pred)
 
-        self.y_preds = pd.Series(labels_pred, dtype=np.int64)
+        self.y_preds = pandas.Series(labels_pred, dtype=numpy.int64)
     
     def accuracy(self) -> float:
         true_positive = (self.y_test == self.y_preds).sum()
 
         return true_positive / len(self.y_test) * 100
 
-    def confusion_matrix(self) -> pd.DataFrame:
-        return pd.crosstab(self.y_test, self.y_preds)
+    def confusion_matrix(self) -> pandas.DataFrame:
+        return pandas.crosstab(self.y_test, self.y_preds)
 
     def best_k(self) -> Tuple[int, float]:
         accuracies = []
