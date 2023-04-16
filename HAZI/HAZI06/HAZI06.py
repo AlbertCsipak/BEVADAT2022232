@@ -68,7 +68,7 @@ X = data.iloc[:, :-1].values
 Y = data.iloc[:, -1].values.reshape(-1,1)
 
 X_train, X_test, Y_train, Y_test  = train_test_split(X, Y, test_size=.2, random_state=41)
-classifier = DecisionTreeClassifier(min_samples_split=100, max_depth=10)
+classifier = DecisionTreeClassifier(min_samples_split=100, max_depth=11)
 classifier.fit(X_train, Y_train)
 
 Y_pred = classifier.predict(X_test)
@@ -82,7 +82,7 @@ ami bár jó erdeményhez is vezethet, új adatok esetén nem fog jó eredményt
 Az optimális beállítások során megpróbáltam egyesével végig próbálgatni a különböző bemeneti paramétereket, 
 abban reménykedve, hogy megtalálom az összefüggést a paraméterek között, de nem igazán jártam sikerrel sajnos.
 A legeredményesebbnek az ígérkezett hogy a max depth-et 10 körüli számként tartom, a sample sizeot pedig kb tízszereseként a maxdepthnek. 
-A legjobb eredményt így sample=100 és depth=10-el értem el, mely 0.802 accuracyt ért el.
+A legjobb eredményt így sample=100 és depth=11-el értem el, mely 0.8036 accuracyt ért el.
 
 
 Test Results:
@@ -92,6 +92,7 @@ min_samples_split=10, max_depth=11 : error
 min_samples_split=10, max_depth=30 : error
 min_samples_split=75, max_depth=10 : 0.80125
 min_samples_split=100, max_depth=10 : 0.802
+min_samples_split=100, max_depth=11 : 0.8036
 min_samples_split=100, max_depth=20 : 0.7974
 min_samples_split=100, max_depth=30 : 0.797
 min_samples_split=200, max_depth=20 : 0.798
