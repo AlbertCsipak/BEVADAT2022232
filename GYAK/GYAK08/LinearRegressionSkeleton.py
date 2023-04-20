@@ -29,8 +29,8 @@ class LinearRegression:
             D_c = (-2/self.n) * sum(residuals)  # Derivative wrt c
             self.m = self.m - self.lr * D_m  # Update m
             self.c = self.c - self.lr * D_c  # Update c
-            if i % 100 == 0:
-                print(np.mean(y_train-y_pred))
+            #if i % 100 == 0:
+            #    print(np.mean(y_train-y_pred))
                     
 
 
