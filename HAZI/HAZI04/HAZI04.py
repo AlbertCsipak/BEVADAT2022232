@@ -165,9 +165,9 @@ def add_grade(df_data):
     newDf = df_data.copy()
     grade = (newDf['math score']+newDf['reading score']+newDf['writing score'])/300    
     newDf['grade'] = pd.cut(grade,
-                     bins = [0, 0.59,0.69,0.79,0.89,1],
-                     right=False,
-                     labels=['F','D','C','B','A'])
+                        bins = [0, 0.59,0.69,0.79,0.89,1],
+                        right=False,
+                        labels=['F','D','C','B','A'])
     
     return newDf
 
